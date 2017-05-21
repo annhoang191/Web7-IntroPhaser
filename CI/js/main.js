@@ -31,15 +31,18 @@ var preload = function(){
 var create = function(){
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
   Nakama.keyboard = Nakama.game.input.keyboard;
+  //Repeating texture
+  Nakama.background=Nakama.game.add.tileSprite(0,0,640,960,'background');
+  //Player
+  Nakama.player=Nakama.game.add.sprite(275, 600, 'assets', 'Spaceship1-Player.png');
 
-  var background =  Nakama.game.add.sprite(0,0,'background');
-
-  Nakama.player=Nakama.game.add.sprite(300, 400, 'assets', 'Spaceship1-Player.png');//x=300, y=400
 }
-
-// update game state each frame
-var update = function(){
-  //Position Y
+//Scrolling background vertically
+var scrollingBackground = function(){
+  Nakama.background.tilePosition.y +=5;
+}
+//Controlling space ship
+var moveShip = function(){
   if(Nakama.keyboard.isDown(Phaser.Keyboard.UP)){
     if(Nakama.player.position.y > 0 ){
       Nakama.player.position.y-=10;
@@ -61,6 +64,11 @@ var update = function(){
       Nakama.player.position.x+=10;
     }
   }
+}
+// update game state each frame
+var update = function(){
+  scrollingBackground();
+  moveShip();
 }
 
 // before camera render (mostly for debug)
