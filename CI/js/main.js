@@ -1,5 +1,9 @@
 var Nakama = {};
-Nakama.configs = {};
+Nakama.configs = {
+  PLAYER_SPEED:10,
+  BACKGROUND_SPEED:5,
+  BULLET_SPEED:200
+};
 
 window.onload = function(){
   Nakama.game = new Phaser.Game(640,960,Phaser.AUTO,'',
@@ -12,7 +16,7 @@ window.onload = function(){
   );
 }
 
-// preparations before game starts
+/*==================preparations before game starts==================*/
 var preload = function(){
   Nakama.game.scale.minWidth = 320;
   Nakama.game.scale.minHeight = 480;
@@ -27,49 +31,34 @@ var preload = function(){
   Nakama.game.load.image('background', 'Assets/Map1.png');
 }
 
-// initialize the game
+/*==================initialize the game==================*/
 var create = function(){
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
   Nakama.keyboard = Nakama.game.input.keyboard;
   //Repeating texture
   Nakama.background=Nakama.game.add.tileSprite(0,0,640,960,'background');
-  //Player
-  Nakama.player=Nakama.game.add.sprite(275, 600, 'assets', 'Spaceship1-Player.png');
-
+  //Player - Partner
+  Nakama.player = new ShipController(300, 400, 'Spaceship1-Player.png', {
+    up: Phaser.Keyboard.UP,
+    down: Phaser.Keyboard.DOWN,
+    left: Phaser.Keyboard.LEFT,
+    right: Phaser.Keyboard.RIGHT,
+    fire: Phaser.Keyboard.CONTROL
+  });
+  Nakama.partner = new ShipController(600,400, 'Spaceship1-Partner.png', {
+    up: Phaser.Keyboard.W,
+    down: Phaser.Keyboard.S,
+    left: Phaser.Keyboard.A,
+    right: Phaser.Keyboard.D,
+    fire: Phaser.Keyboard.SPACEBAR
+  });
 }
-//Scrolling background vertically
-var scrollingBackground = function(){
-  Nakama.background.tilePosition.y +=5;
-}
-//Controlling space ship
-var moveShip = function(){
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.UP)){
-    if(Nakama.player.position.y > 0 ){
-      Nakama.player.position.y-=10;
-    }
-  }
-  else if(Nakama.keyboard.isDown(Phaser.Keyboard.DOWN)){
-    if(Nakama.player.position.y < Nakama.game.height-78){
-      Nakama.player.position.y+=10;
-    }
-  }
-  //Position X
-  else if(Nakama.keyboard.isDown(Phaser.Keyboard.LEFT)){
-    if(Nakama.player.position.x > 0){
-      Nakama.player.position.x-=10;
-    }
-  }
-  else if(Nakama.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-    if(Nakama.player.position.x < Nakama.game.width-78){
-      Nakama.player.position.x+=10;
-    }
-  }
-}
-// update game state each frame
+/*==================Update game state each frame==================*/
 var update = function(){
-  scrollingBackground();
-  moveShip();
+  Nakama.background.tilePosition.y +=Nakama.configs.BACKGROUND_SPEED;
+  Nakama.player.update();
+  Nakama.partner.update();
 }
 
-// before camera render (mostly for debug)
+/*================== before camera render (mostly for debug)==================*/
 var render = function(){}
