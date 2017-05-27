@@ -35,24 +35,24 @@ var preload = function(){
 var create = function(){
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
   Nakama.keyboard = Nakama.game.input.keyboard;
-  //Repeating texture
-  Nakama.background=Nakama.game.add.tileSprite(0,0,640,960,'background');
+
+  Nakama.background = Nakama.game.add.tileSprite(0,0,640,960,'background');
+  Nakama.bulletGroup = Nakama.game.add.physicsGroup();
+  Nakama.playerGroup = Nakama.game.add.physicsGroup();
   //Player - Partner
-  Nakama.player = new ShipController(300, 600, 'Spaceship1-Player.png', {
+  Nakama.player = new ShipType1Controller(150, 900, {
     up      :   Phaser.Keyboard.UP,
     down    :   Phaser.Keyboard.DOWN,
     left    :   Phaser.Keyboard.LEFT,
     right   :   Phaser.Keyboard.RIGHT,
     fire    :   Phaser.Keyboard.CONTROL,
-    cooldown: 0.3
   });
-  Nakama.partner = new ShipController(500,600, 'Spaceship1-Partner.png', {
+  Nakama.partner = new ShipType1Controller(500,900, {
     up      : Phaser.Keyboard.W,
     down    : Phaser.Keyboard.S,
     left    : Phaser.Keyboard.A,
     right   : Phaser.Keyboard.D,
     fire    : Phaser.Keyboard.SPACEBAR,
-    cooldown: 0.3
   });
 }
 /*==================Update game state each frame==================*/
