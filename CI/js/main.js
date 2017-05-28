@@ -1,8 +1,8 @@
 var Nakama = {};
 Nakama.configs = {
-  PLAYER_SPEED:500,
-  BACKGROUND_SPEED:5,
-  BULLET_SPEED:1500
+  PLAYER_SPEED      :500,
+  BACKGROUND_SPEED  :5,
+  BULLET_SPEED      :1500
 };
 
 window.onload = function(){
@@ -40,14 +40,14 @@ var create = function(){
   Nakama.bulletGroup = Nakama.game.add.physicsGroup();
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
   //Player - Partner
-  Nakama.player = new ShipType1Controller(150, 900, {
+  Nakama.player = new ShipType3Controller(150, 900, {
     up      :   Phaser.Keyboard.UP,
     down    :   Phaser.Keyboard.DOWN,
     left    :   Phaser.Keyboard.LEFT,
     right   :   Phaser.Keyboard.RIGHT,
     fire    :   Phaser.Keyboard.CONTROL,
   });
-  Nakama.partner = new ShipType1Controller(500,900, {
+  Nakama.partner = new ShipType3Controller(500,900, {
     up      : Phaser.Keyboard.W,
     down    : Phaser.Keyboard.S,
     left    : Phaser.Keyboard.A,

@@ -5,10 +5,9 @@ class ShipType1Controller extends ShipController{
     super(x, y, 'Spaceship1-Player.png', configs);      //base class
   }
   createBullet(direction){
-    new BulletController(
+    new BulletType1Controller(
       this.sprite.position.x,
       this.sprite.position.y,
-      'BulletType1.png',
       {
           direction: direction
       }
