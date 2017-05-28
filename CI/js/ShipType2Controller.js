@@ -15,8 +15,6 @@ class ShipType2Controller extends ShipController{
   }
   fireAmmo(){
      this.createBullet(new Phaser.Point(0, -1));
-     //this.createBullet(new Phaser.Point(1, -10));
-     //this.createBullet(new Phaser.Point(-1, -10));
      this.createBullet(new Phaser.Point(1, -2));
      this.createBullet(new Phaser.Point(-1, -2));
    }
