@@ -47,6 +47,7 @@ var createShipType = function(){
     right   : Phaser.Keyboard.D,
     fire    : Phaser.Keyboard.SPACEBAR
   };
+  
   do{
     var userInput = prompt("Enter your spacecraft type\n1:\n2:\n3:");
     switch(userInput){
