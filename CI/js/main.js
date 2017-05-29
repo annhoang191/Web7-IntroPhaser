@@ -31,6 +31,44 @@ var preload = function(){
   Nakama.game.load.image('background', 'Assets/Map1.png');
 }
 
+/*==================create spacecraft based on user input==================*/
+var createShipType = function(){
+  var playerConfigs = {
+    up      :   Phaser.Keyboard.UP,
+    down    :   Phaser.Keyboard.DOWN,
+    left    :   Phaser.Keyboard.LEFT,
+    right   :   Phaser.Keyboard.RIGHT,
+    fire    :   Phaser.Keyboard.CONTROL
+  };
+  var partnerConfigs = {
+    up      : Phaser.Keyboard.W,
+    down    : Phaser.Keyboard.S,
+    left    : Phaser.Keyboard.A,
+    right   : Phaser.Keyboard.D,
+    fire    : Phaser.Keyboard.SPACEBAR
+  };
+
+  do{
+    var userInput = prompt("Enter your spacecraft type\n1:\n2:\n3:");
+    switch(userInput){
+      case '1':
+          Nakama.player   = new ShipType1Controller(150, 900, playerConfigs);
+          Nakama.partner  = new ShipType1Controller(500,900, partnerConfigs);
+        break;
+      case '2':
+          Nakama.player   = new ShipType2Controller(150, 900, playerConfigs);
+          Nakama.partner  = new ShipType2Controller(500,900, partnerConfigs)
+        break;
+      case '3':
+          Nakama.player   = new ShipType3Controller(150, 900, playerConfigs);
+          Nakama.partner  = new ShipType3Controller(500,900, partnerConfigs)
+        break;
+      default:
+        alert('Invalid input!');
+        break;
+    }
+  }while(userInput < '1' || userInput > '3');
+}
 /*===============================initialize the game==================*/
 var create = function(){
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -39,69 +77,7 @@ var create = function(){
   Nakama.background = Nakama.game.add.tileSprite(0,0,640,960,'background');
   Nakama.bulletGroup = Nakama.game.add.physicsGroup();
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
-
-  var userInput = prompt("Enter the type of your spacecraft\ntype 1:\ntype 2:\ntype 3:");
-  switch(userInput){
-      case "":
-      case "type 1":
-          Nakama.player = new ShipType1Controller(150, 900, {
-            up      :   Phaser.Keyboard.UP,
-            down    :   Phaser.Keyboard.DOWN,
-            left    :   Phaser.Keyboard.LEFT,
-            right   :   Phaser.Keyboard.RIGHT,
-            fire    :   Phaser.Keyboard.CONTROL
-          });
-          Nakama.partner = new ShipType1Controller(500,900, {
-            up      : Phaser.Keyboard.W,
-            down    : Phaser.Keyboard.S,
-            left    : Phaser.Keyboard.A,
-            right   : Phaser.Keyboard.D,
-            fire    : Phaser.Keyboard.SPACEBAR
-          });
-        break;
-      case "type 2":
-          Nakama.player = new ShipType2Controller(150, 900, {
-            up      :   Phaser.Keyboard.UP,
-            down    :   Phaser.Keyboard.DOWN,
-            left    :   Phaser.Keyboard.LEFT,
-            right   :   Phaser.Keyboard.RIGHT,
-            fire    :   Phaser.Keyboard.CONTROL,
-          });
-          Nakama.partner = new ShipType2Controller(500,900, {
-            up      : Phaser.Keyboard.W,
-            down    : Phaser.Keyboard.S,
-            left    : Phaser.Keyboard.A,
-            right   : Phaser.Keyboard.D,
-            fire    : Phaser.Keyboard.SPACEBAR,
-          });
-        break;
-      case "type 3":
-        Nakama.player = new ShipType3Controller(150, 900, {
-          up      :   Phaser.Keyboard.UP,
-          down    :   Phaser.Keyboard.DOWN,
-          left    :   Phaser.Keyboard.LEFT,
-          right   :   Phaser.Keyboard.RIGHT,
-          fire    :   Phaser.Keyboard.CONTROL,
-        });
-        Nakama.partner = new ShipType3Controller(500,900, {
-          up      : Phaser.Keyboard.W,
-          down    : Phaser.Keyboard.S,
-          left    : Phaser.Keyboard.A,
-          right   : Phaser.Keyboard.D,
-          fire    : Phaser.Keyboard.SPACEBAR,
-        });
-          break;
-      default:
-        var text="Invalid Input!";
-        Nakama.print=Nakama.game.add.text(170,480, '', {
-          font: 'bold 40pt Arial',
-          fill : 'white',
-          stroke : 'black',
-          strokeThickness : 4
-        });
-        Nakama.print.setText(text);
-        break;
-      }
+  createShipType();
 }
 
 
