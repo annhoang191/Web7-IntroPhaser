@@ -6,7 +6,7 @@ class ShipController{
     this.sprite.anchor = new Phaser.Point(0.5 , 0.5);
     this.sprite.body.collideWorldBounds=true;
   }
-  fireAmmo(){}                  //override later - prevent program from crashing
+  fireAmmo(){}                    //override later - prevent program from crashing
   update(){
     if(Nakama.keyboard.isDown(this.configs.up)){
         this.sprite.body.velocity.y=-this.configs.speed;
