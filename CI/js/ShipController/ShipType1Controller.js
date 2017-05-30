@@ -1,8 +1,11 @@
 class ShipType1Controller extends ShipController{
   constructor(x, y, configs){
-    configs.cooldown  = 0.3;
-    configs.speed     = 500;
-    super(x, y, 'Spaceship1-Player.png', configs);      //base class
+    super(x, y, `Spaceship1${configs.spriteSuffix}.png`, Object.assign(
+      configs, {
+        cooldown : 0.3,
+        speed    : 500
+      }
+    ));
   }
   createBullet(direction){
     new BulletType1Controller(
